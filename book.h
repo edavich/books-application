@@ -9,6 +9,16 @@
 #ifndef book_h
 #define book_h
 
-int something(int argc, const char * argv[]);
+typedef struct Content{
+    const char *pages[1000];
+} Content;
+
+typedef struct Book {
+    char *title
+    char *author
+    int pubDate
+    Content content;
+
+} Book;
 
 #endif /* book.h */
