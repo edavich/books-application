@@ -21,10 +21,9 @@
 int count = 0;
 int rCount = 0;
 
-
 Library * search(const char c, Library * all){
     Library *result;
-    if (all->booklist[0]->title == NULL) return NULL;
+    if (all->booklist[count]->title == NULL) return NULL;
     if (c == 'T'){
     	char name[100];
     	printf("Enter title:   ");
@@ -66,7 +65,7 @@ Library * search(const char c, Library * all){
 	}
     }
     else if (c=='L'){
-        result->booklist = all->booklist;
+        result->booklist == all->booklist;
     }
     else{
     	return NULL;

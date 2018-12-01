@@ -15,7 +15,7 @@ typedef struct Content{
 
 typedef struct Author{
     char author[250];
-}
+} Author;
 
 typedef struct Book {
     char title[250];
