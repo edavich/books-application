@@ -11,6 +11,13 @@
 #include <stdio.h>
 
 #include "core.h"
+#include "book.h"
+
+Library search(const char c){
+    Library result;
+    
+    if (c
+}
 
 int core_main(int argc, const char * argv[]) {
     printf("%s", "\n\n\t\tWELCOME TO BOOKS\n\n");
@@ -18,6 +25,19 @@ int core_main(int argc, const char * argv[]) {
     printf("\nTitle(T), Author(A), Date(D), List All (L):   ");
     char choice = getchar();
     printf("\nYour choice is %c", choice);
+
+    FILE *dir;
+    char buf[1000];
+    dir = fopen("bookdirectory.txt", "r");
+    if (dir){
+    	while(fgets(buf,1000,dir) != NULL){
+	    
+	}
+    }
+
+
+
+
     printf("%s", "\n\n\n");
     return 0;
 }
