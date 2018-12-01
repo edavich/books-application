@@ -16,7 +16,7 @@ typedef struct Content{
 typedef struct Book {
     char *title;
     char *author;
-    int pubDate;
+    int date;
     Content content;
 
 } Book;

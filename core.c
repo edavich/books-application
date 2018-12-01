@@ -13,10 +13,58 @@
 #include "core.h"
 #include "book.h"
 
-Library search(const char c){
+Library search(const char c, Library all){
     Library result;
     
-    if (c
+    if (c == 'T'){
+    	char name[100];
+	count = 0;
+	rCount = 0;
+    	printf("Enter title:   ");
+        scanf("%s", name);
+	while(all[count] != NULL){
+	    if (all[count]=>title == name){
+	        result[rCount] = all[count];
+		rCount++;
+	    }
+	    count++;
+	}
+    }
+    else if (c=='A'){
+        char name[100];
+	count = 0;
+	rCount = 0;
+    	printf("Enter author:   ");
+        scanf("%s", name);
+	while(all[count] != NULL){
+	    if (all[count]=>author == name){
+	        result[rCount] = all[count];
+		rCount++;
+	    }
+	    count++;
+	}
+    }
+    else if (c=='D'){
+        char name[100];
+	count = 0;
+	rCount = 0;
+    	printf("Enter publication date:   ");
+        scanf("%s", name);
+	while(all[count] != NULL){
+	    if (all[count]=>date == name){
+	        result[rCount] = all[count];
+		rCount++;
+	    }
+	    count++;
+	}
+    }
+    else if (c=='L'){
+        result = all;
+    }
+    else{
+    	return NULL;
+    }
+    return result;	
 }
 
 int core_main(int argc, const char * argv[]) {
@@ -25,7 +73,8 @@ int core_main(int argc, const char * argv[]) {
     printf("\nTitle(T), Author(A), Date(D), List All (L):   ");
     char choice = getchar();
     printf("\nYour choice is %c", choice);
-
+    
+    Library books;
     FILE *dir;
     char buf[1000];
     dir = fopen("bookdirectory.txt", "r");
