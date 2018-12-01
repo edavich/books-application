@@ -14,9 +14,9 @@ typedef struct Content{
 } Content;
 
 typedef struct Book {
-    char *title
-    char *author
-    int pubDate
+    char *title;
+    char *author;
+    int pubDate;
     Content content;
 
 } Book;

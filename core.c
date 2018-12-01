@@ -8,9 +8,11 @@
 
 #include <stdlib.h>
 #include <string.h>
+#include <stdio.h>
 
 #include "core.h"
 
 int core_main(int argc, const char * argv[]) {
-	return 0;
+    printf("%s", "/t/tWELCOME TO BOOKS");
+    return 0;
 }
