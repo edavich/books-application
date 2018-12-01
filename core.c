@@ -23,13 +23,13 @@ int rCount = 0;
 
 Library * search(const char c, Library * all){
     Library *result;
-    if (all->booklist[count]->title == NULL) return NULL;
+    if (all->booklist[count].title == NULL) return NULL;
     if (c == 'T'){
     	char name[100];
     	printf("Enter title:   ");
         scanf("%s", name);
-	while(all->booklist[count]->title != NULL){
-	    if (all->booklist[count]->title == name){
+	while(all->booklist[count].title != NULL){
+	    if (all->booklist[count].title == name){
 	        result->booklist[rCount] = all->booklist[count];
 		rCount++;
 	    }
@@ -42,8 +42,8 @@ Library * search(const char c, Library * all){
         char name[100];
     	printf("Enter author:   ");
         scanf("%s", name);
-	while(all->booklist[count]->author->author != NULL){
-	    if (all->booklist[count]->author->author == name){
+	while(all->booklist[count].author.author != NULL){
+	    if (all->booklist[count].author.author == name){
 	        result->booklist[rCount] = all->booklist[count];
 		rCount++;
 	    }
@@ -56,8 +56,9 @@ Library * search(const char c, Library * all){
         char name[100];
     	printf("Enter publication date:   ");
         scanf("%s", name);
-	while(all[count]->date != NULL){
-	    if (all[count]->date == name){
+	int date = atoi(name);
+	while(!all->booklist[count].date){
+	    if (all->booklist[count].date == date){
 	        result->booklist[rCount] = all->booklist[count];
 		rCount++;
 	    }
@@ -76,14 +77,13 @@ Library * search(const char c, Library * all){
 //Appearance of books application
 int core_main(int argc, const char * argv[]) {
     printf("%s", "\n\n\t\tWELCOME TO BOOKS\n\n");
-    
-    Library * result;
-    while (result == NULL){
+     
+    int noResult = 1;
+    while (noResult){
         printf("How would you like to search the library?");
     	printf("\nTitle(T), Author(A), Date(D), List All (L):   ");
     	char choice = getchar();
-    	printf("\nYour choice is %c", choice);
-    
+    	
     	Library * booklist;
     	FILE *dir;
     	char buf[1000];
@@ -93,22 +93,23 @@ int core_main(int argc, const char * argv[]) {
 	   	char* token = strtok(buf, ", ");
 	   	int i = atoi(token);
 	   	token = strtok(NULL, ", ");
-           	books->booklist[i]->title = token + '\0';
+           	strcpy(booklist->booklist[i].title, token + '\0');
 	   	token = strtok(NULL, ", ");
-	   	books->booklist[i]->author->author = token + '\0';
+           	strcpy(booklist->booklist[i].author.author, token + '\0');
 	   	token = strtok(NULL, ", ");
-	   	books->booklist[i]->date = atoi(token);
+	   	booklist->booklist[i].date = atoi(token);
 	   	token = strtok(NULL, ", ");
-           	books->booklist[i]->filename = token + '\0';
+           	strcpy(booklist->booklist[i].filename, token + '\0');
 	    }
 	}
-    	result = search(choice, books);
+    	Library *result = search(choice, booklist);
     	if (result->booklist == NULL) printf("Sorry, we could not find a book. Please try again!");
     	else {
+	    noResult = 0;
             count = 0;
 	    printf("We found the following books:  \n\n ");
-	    while (result->booklist[count] != NULL){
-	        printf("\t%s", result->booklist[count]->title);
+	    while (result->booklist[count].title != NULL){
+	        printf("\t%s", result->booklist[count].title);
 	    }
         }
     }

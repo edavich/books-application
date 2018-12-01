@@ -25,6 +25,8 @@ typedef struct Book {
     char filename[250];
 } Book;
 
-
+typedef struct Library{
+    Book booklist[100];
+} Library;
 
 #endif /* book.h */
