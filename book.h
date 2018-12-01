@@ -13,12 +13,18 @@ typedef struct Content{
     const char *pages[1000];
 } Content;
 
+typedef struct Author{
+    char author[250];
+}
+
 typedef struct Book {
-    char *title;
-    char *author;
+    char title[250];
+    Author author;
     int date;
     Content content;
-
+    char filename[250];
 } Book;
+
+
 
 #endif /* book.h */
