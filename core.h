@@ -11,10 +11,10 @@
 #include "book.h"
 
 typedef struct Library{
-    Book listBook[100];
+    Book booklist[100];
 } Library;
 
-Library search(const char c);
+Library * search(const char c, Library* all);
 
 int core_main(int argc, const char * argv[]);
 
