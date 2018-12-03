@@ -17,7 +17,7 @@
 
 
 //c = user's choice
-
+/*
 int count = 0;
 int rCount = 0;
 
@@ -76,7 +76,7 @@ int search(const char c, Library * all){
     }
     return r;	
 }
-
+*/
 //Appearance of books application
 int core_main(int argc, const char * argv[]) {
     printf("%s", "\n\n\t\tWELCOME TO BOOKS\n\n");
@@ -86,8 +86,7 @@ int core_main(int argc, const char * argv[]) {
         printf("How would you like to search the library?");
     	printf("\nTitle(T), Author(A), Date(D), List All (L):   ");
     	char choice = getchar();
-    	
-    	Library * booklist = malloc(sizeof(Library));
+
     	FILE *dir;
     	char buf[250];
     	dir = fopen("booksdirectory.txt", "r");
@@ -96,33 +95,52 @@ int core_main(int argc, const char * argv[]) {
 	    continue;
 	}
 	int i;
+	Library book1;
+	Library book2;
+	Library book3;
+	Library book4;
+	Library book5;
+
+	book1.next = &book2;
+	book2.next = &book3;
+	book3.next = &book4;
+	book4.next = &book5;
+	book5.next = NULL;	
+
+	Library * cur = &book1;
 	while(fgets(buf, 250, dir)!= NULL){
 	    char* token = strtok(buf, ",");
 	    i = atoi(token);
+	    i = i-1;
 	    printf("%d\n", i);
 	    token = strtok(NULL, ",");
-            strcpy(booklist->booklist[i].title, token);
-	     printf("%s\n", booklist->booklist[i].title);
+            strcpy(cur->booklist.title, token);
+	    printf("%s\n", cur->booklist.title);
 	    token = strtok(NULL, ",");
-            strcpy(booklist->booklist[i].author.author, token);
-	    printf("%s\n", booklist->booklist[i].author.author);
+            strcpy(cur->booklist.author.author, token);
+	    printf("%s\n", cur->booklist.author.author);
 	    token = strtok(NULL, ",");
 	    int num = atoi(token);
-	    booklist->booklist[i].date = num;
-	    printf("%d\n", booklist->booklist[i].date);
+	    cur->booklist.date = num;
+	    printf("%d\n", cur->booklist.date);
 	    token = strtok(NULL, ",");
-            strcpy(booklist->booklist[i].filename, token);
-	    printf("%s\n", booklist->booklist[i].filename);
+            strcpy(cur->booklist.filename, token);
+	    printf("%s\n", cur->booklist.filename);
+	    cur = cur->next;
 	}
-	fclose(dir); 
-	for(int c = 0; c < i; c++){
-	    printf("%s\n", booklist->booklist[i].title);
+	//cur.next = NULL;
+	fclose(dir);
+	
+	cur = &book1;
+	while (cur != NULL){
+	    printf("%s\n", cur->booklist.title);
+	    cur = cur->next;
 	}
-	int  r = search(choice, booklist);
+/*	int  r = search(choice, book1);
 	printf("%d\n", r);
 	return 0;
     	//if (result->booklist == NULL) printf("Sorry, we could not find a book. Please try again!");
-/*    	if(place == 0) {
+*    	if(place == 0) {
 	    noResult = 0;
             count = 0;
 	    printf("We found the following books:  \n\n ");

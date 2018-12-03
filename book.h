@@ -26,7 +26,8 @@ typedef struct Book {
 } Book;
 
 typedef struct Library{
-    Book booklist[100];
+    Book booklist;
+    struct Library * next;
 } Library;
 
 #endif /* book.h */
