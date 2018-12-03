@@ -1,5 +1,5 @@
-1, Alice In Wonderland, Lewis Carroll, 1994, AliceInWonderland.txt
-2, Dracula, Bram Stoker, 1897, Dracula.txt
-3, Grimm's Fairy Tales, The Brothers Grimm, 1812, Grimm'sFairyTales.txt
-4, Moby Dick, Herman Melville, 1851, MobyDick.txt
-5, Pride and Prejudice, Jane Austen, 1813, PrideAndPrejudice.txt
+1,Alice In Wonderland,Lewis Carroll,1994,AliceInWonderland.txt
+2,Dracula,Bram Stoker,1897,Dracula.txt
+3,Grimm's Fairy Tales,The Brothers Grimm,1812,Grimm'sFairyTales.txt
+4,Moby Dick,Herman Melville,1851,MobyDick.txt
+5,Pride and Prejudice,Jane Austen,1813,PrideAndPrejudice.txt

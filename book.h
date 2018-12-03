@@ -14,15 +14,15 @@ typedef struct Content{
 } Content;
 
 typedef struct Author{
-    char author[250];
+    char author[50];
 } Author;
 
 typedef struct Book {
-    char title[250];
+    char title[50];
     Author author;
     int date;
     Content content;
-    char filename[250];
+    char filename[50];
 } Book;
 
 typedef struct Library{
