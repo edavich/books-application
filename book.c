@@ -12,13 +12,16 @@
 
 #include "book.h"
 
-/*
 
-Book* read_book(Book* book){
+
+Book* read_book(Book* book, char* filename){
     char key[54] = "To navigate type Previous(P), Next(N), or Exit(E):   ";
     FILE *fp;
     	char buf[500];
-    	fp = fopen("booksdirectory.txt", "r");
+	char *path = "/Books";
+	strcat(path, filename);
+	printf("%s\n", path);
+    	fp = fopen(path, "r");
 	if (fp == NULL){
 	    printf("Bad file");
 	    return book;
@@ -49,5 +52,4 @@ Book* read_book(Book* book){
 
 }
 
-*/
 

@@ -156,8 +156,12 @@ int core_main(int argc, const char * argv[]) {
         if (strcmp(curLib->booklist.title, selectedTitle) == 0){
 	    selectedBook = curLib->booklist;
 	}
+	curLib = curLib->next;
     }
-    
+    printf("\n\n\nBook Title: %s", selectedBook.title);
+
+    read_book(&selectedBook, selectedBook.filename);
+    //printf("%s\n", loadedBook->content.pages[0]);
 
 
 

@@ -25,10 +25,8 @@ typedef struct Book {
     char filename[50];
 } Book;
 
-Book* read_book(Book *book);
+Book* read_book(Book *book, char* filename);
 
-
-Book* read_book(Book *book);
 
 #endif /* book.h */
 
