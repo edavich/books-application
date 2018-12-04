@@ -172,10 +172,20 @@ int core_main(int argc, const char * argv[]) {
     //printf("%s", path);
     strcat(path, selectedBook.filename);
     //strcat(path, "\0");
-    //printf("\n\n\nBook Title: %s\n", path);
+    printf("\n\n\nBook Title: %s\n", selectedBook.title);
     FILE *fp;
     fp = fopen("Books/Dracula.txt", "r");
-    Book* loadedBook = read_book(&fp, &selectedBook);
+    char nav = 'N';
+    char ch;
+    while(nav == 'N'){
+	read_book(&fp, &selectedBook);
+	printf("\nTo navigate select Next(N) or Exit(E):   ");
+        scanf(" %c", &ch);
+	nav = ch;
+	if (nav == 'E'){
+	    printf("\n\n\t\tThank you for choosing Books! %c\n", choice);
+	}
+    }
     fclose(fp);
     //printf("%s\n", loadedBook->content.pages[0]);
 
