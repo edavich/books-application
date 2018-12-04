@@ -18,19 +18,16 @@
 //Search through library of books  by title
 //c = user's choice
 
-int count = 0;
-int rCount = 0;
+
 Library* search(const char c, Library * cur){
-    int r = 0;
     Library * result = (Library *)malloc(sizeof(Library));
     if (cur == NULL) return NULL;
     if (c == 'T'){
         char name[100];
         printf("Enter title:   ");
-        scanf("%s", name);
-    	printf("name is: %s\n", name);
+        scanf("%s", name); 
     	while(cur != NULL){
-            if (strcmp(cur->booklist.title, name)){
+            if (!strcmp(cur->booklist.title, name)){
                 strcpy(result->booklist.title, name);
 		result->next = NULL;
 		return result;
@@ -38,21 +35,35 @@ Library* search(const char c, Library * cur){
             cur = cur->next;
     	}
     }
-/*    else if (c=='D'){
+        //Search through library of books by author 
+    else if (c=='A'){
         char name[100];
-        printf("Enter publication date:   ");
+        printf("Enter author:   ");
         scanf("%s", name);
-        int date = atoi(name);
-        while(cur != NULL){
-            if (cur->booklist.date == date){
-                result->booklist.date = date;
+        while(cur !=  NULL){
+            if (!strcmp(cur->booklist.author.author,name)){
+	        strcpy(result->booklist.title, cur->booklist.title);
 		result->next = NULL;
 		return result;
             }
 	    cur = cur->next;
         }
     }
-    */
+     else if (c=='D'){
+        char name[100];
+        printf("Enter publication date:   ");
+        scanf("%s", name);
+        int date = atoi(name);
+	printf("%d\n", date);
+        while(cur != NULL){
+            if (cur->booklist.date == date){
+                strcpy(result->booklist.title, cur->booklist.title);
+		result->next = NULL;
+		return result;
+            }
+	    cur = cur->next;
+        }
+    }
     else if (c=='L'){
         return cur;
     }
@@ -78,7 +89,8 @@ int core_main(int argc, const char * argv[]) {
 
       printf("How would you like to search the library?");
       printf("\nTitle(T), Author(A), Date(D), List All (L):   ");
-      choice = getchar(); 
+      scanf(" %c", &choice);
+ 
 
         //open book directory
     	FILE *dir;
@@ -124,6 +136,7 @@ int core_main(int argc, const char * argv[]) {
 	}
 	curLib->next = NULL;
 	curLib = lib;
+
         Library* result = search(choice, curLib);
 	if (result != NULL) {
 	    printf("\n\tBooks found: \n");
@@ -134,7 +147,8 @@ int core_main(int argc, const char * argv[]) {
             resultNotFound = 0;
 	}
 	else{
-	    printf("Sorry, no books were found.");
+	    printf("Sorry, no books were found.\n");
+	    resultNotFound = 0;
 	}
 	//close the file
 	fclose(dir);
@@ -183,7 +197,7 @@ int core_main(int argc, const char * argv[]) {
         scanf(" %c", &ch);
 	nav = ch;
 	if (nav == 'E'){
-	    printf("\n\n\t\tThank you for choosing Books! %c\n", choice);
+	    printf("\n\n\t\tThank you for choosing Books! \n");
 	}
     }
     fclose(fp);
