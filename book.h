@@ -10,7 +10,7 @@
 #define book_h
 
 typedef struct Content{
-    const char *pages[1000];
+    char *pages[1000];
 } Content;
 
 typedef struct Author{
@@ -24,6 +24,9 @@ typedef struct Book {
     Content content;
     char filename[50];
 } Book;
+
+Book* read_book(Book *book);
+
 
 Book* read_book(Book *book);
 

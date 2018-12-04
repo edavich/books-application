@@ -9,8 +9,10 @@
 #ifndef usershelf_h
 #define usershelf_h
 
+#include "book.h"
+
 typedef struct Shelf {
-    
+    Book *book;    
 } Shelf;
 
 #endif /* usershelf.h */

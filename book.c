@@ -12,7 +12,11 @@
 
 #include "book.h"
 
+<<<<<<< HEAD
 /*
+=======
+
+>>>>>>> fe514760f1482ff863179ff87b3ad4be6f79cf2e
 Book* read_book(Book* book){
     char key[54] = "To navigate type Previous(P), Next(N), or Exit(E):   ";
     FILE *fp;
@@ -47,4 +51,10 @@ Book* read_book(Book* book){
    //return 40 lines of content at a time to be printed in main 
 
 }
+<<<<<<< HEAD
 */
+=======
+
+
+
+>>>>>>> fe514760f1482ff863179ff87b3ad4be6f79cf2e
