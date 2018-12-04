@@ -146,10 +146,18 @@ int core_main(int argc, const char * argv[]) {
 	}*/
 
     }
+    
+    char favorite[50];
+    printf("Would you like to add a book to your favorites shelf (Y/N)? ");
+    scanf("%s", favorite);
+    if(* favorite == 'Y'){
+      printf("call add to shelf");
+    }
+ 
     char selectedTitle[50];
     printf("\nSelect a title to read:   ");
     scanf("%s", selectedTitle);
-    
+     
     Book selectedBook;
     curLib = lib;
     while(curLib != NULL){
@@ -157,6 +165,7 @@ int core_main(int argc, const char * argv[]) {
 	    selectedBook = curLib->booklist;
 	}
     }
+     
     
 
 

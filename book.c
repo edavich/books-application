@@ -12,7 +12,6 @@
 
 #include "book.h"
 
-/*
 
 Book* read_book(Book* book){
     char key[54] = "To navigate type Previous(P), Next(N), or Exit(E):   ";
@@ -49,5 +48,5 @@ Book* read_book(Book* book){
 
 }
 
-*/
+
 
