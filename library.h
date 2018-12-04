@@ -1,6 +1,7 @@
 //  library.h  
 //
 //
+#include "book.h"
 
 #ifndef library_h
 #define library_h
