@@ -1,7 +1,7 @@
 //
 // book.h
 // 308 Final Project
-// 
+//
 // Created by Emily Davich and Vivian Weaver
 // Copyright 2018
 //
@@ -25,9 +25,7 @@ typedef struct Book {
     char filename[50];
 } Book;
 
-typedef struct Library{
-    Book booklist;
-    struct Library * next;
-} Library;
+Book* read_book(Book *book);
 
 #endif /* book.h */
+
