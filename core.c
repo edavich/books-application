@@ -150,10 +150,10 @@ int core_main(int argc, const char * argv[]) {
     printf("\nSelect a title to read:   ");
     scanf("%s", selectedTitle);
     
-    Book selectedBook = NULL;
+    Book selectedBook;
     curLib = lib;
     while(curLib != NULL){
-        if (strcmp(curLib->booklist.title, selectedTitle){
+        if (strcmp(curLib->booklist.title, selectedTitle) == 0){
 	    selectedBook = curLib->booklist;
 	}
     }
