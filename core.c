@@ -34,13 +34,31 @@ Library* search(const char c, Library * cur){
                 strcpy(result->booklist.title, name);
 		result->next = NULL;
 		return result;
-		printf("success");
-		
             }
             cur = cur->next;
     	}
     }
-    return NULL;
+/*    else if (c=='D'){
+        char name[100];
+        printf("Enter publication date:   ");
+        scanf("%s", name);
+        int date = atoi(name);
+        while(cur != NULL){
+            if (cur->booklist.date == date){
+                result->booklist.date = date;
+		result->next = NULL;
+		return result;
+            }
+	    cur = cur->next;
+        }
+    }
+    */
+    else if (c=='L'){
+        return cur;
+    }
+    else{
+        return NULL;
+    }  
 }
 
 
@@ -107,7 +125,17 @@ int core_main(int argc, const char * argv[]) {
 	curLib->next = NULL;
 	curLib = lib;
         Library* result = search(choice, curLib);
-	if (result != NULL) printf("%s\n", result->booklist.title);
+	if (result != NULL) {
+	    printf("\n\tBooks found: \n");
+	    while(result != NULL){
+	        printf("\t\t%s\n", result->booklist.title);
+		result = result->next;
+	    }
+            resultNotFound = 0;
+	}
+	else{
+	    printf("Sorry, no books were found.");
+	}
 	//close the file
 	fclose(dir);
 	/*
@@ -116,8 +144,22 @@ int core_main(int argc, const char * argv[]) {
 	    curLib = curLib->next;
 	
 	}*/
-	return 0;
-    	
 
     }
+    char selectedTitle[50];
+    printf("\nSelect a title to read:   ");
+    scanf("%s", selectedTitle);
+    
+    Book selectedBook = NULL;
+    curLib = lib;
+    while(curLib != NULL){
+        if (strcmp(curLib->booklist.title, selectedTitle){
+	    selectedBook = curLib->booklist;
+	}
+    }
+    
+
+
+
+    return 0;
 }
