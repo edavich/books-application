@@ -195,6 +195,7 @@ int core_main(int argc, const char * argv[]) {
 	printf("Book added\n\n");
     }
     printf("Would you like to view your favorites shelf (Y/N)?   ");
+    strcpy(favorite, "\0");
     scanf("%s", favorite);
     if(* favorite == 'Y'){
         print_shelf(shelf);
