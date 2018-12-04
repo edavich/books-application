@@ -85,13 +85,13 @@ int core_main(int argc, const char * argv[]) {
 
     char choice;
     int resultNotFound = 1;
+
     //Allows user to search through the library until they make a selection.
     while(resultNotFound){
       printf("How would you like to search the library?");
       printf("\nTitle(T), Author(A), Date(D), List All (L):   ");
       scanf(" %c", &choice);
  
-
         //open book directory
     	FILE *dir;
     	char buf[250];
@@ -131,11 +131,12 @@ int core_main(int argc, const char * argv[]) {
 	    token = strtok(NULL, ",");
 	    int num = atoi(token);
 	    curLib ->booklist.date = num;
-	    token = strtok(NULL, ", ");
+	    token = strtok(NULL, ",");
 	    char filename[35];
-	    strcat(filename, token);
-	    strcat(filename, "\0");
+            strcpy(filename, token);
+	    //strcat(filename, "\0");
             strcpy(curLib->booklist.filename, filename);
+            //printf("%s", filename);
 	}
 	curLib->next = NULL;
 	curLib = lib;
@@ -163,6 +164,7 @@ int core_main(int argc, const char * argv[]) {
 
     }
     
+    //printf("%s", curLib->booklist.filename);
  
     char selectedTitle[50];
     printf("\nSelect a title to read:   ");
@@ -172,11 +174,15 @@ int core_main(int argc, const char * argv[]) {
     curLib = lib;
     while(curLib != NULL){
         if (strstr(curLib->booklist.title, selectedTitle) != NULL){
-	    selectedBook = curLib->booklist;
+	    //selectedBook = curLib->booklist;
+            memcpy(&selectedBook, &(curLib->booklist), sizeof(Book));
+            strcpy(selectedBook.filename, curLib->booklist.filename);
+            //printf("%s", selectedBook.filename);
 	}
 	curLib = curLib->next;
     }
-
+    
+    //favorites/users shelf
     char favorite[50];
     printf("Would you like to add this book to your favorites shelf (Y/N)?   ");
     scanf("%s", favorite);
@@ -193,30 +199,42 @@ int core_main(int argc, const char * argv[]) {
 	scanf(" %c", &wait);
     }
 
-
-    char path[70] = "\0";
-    char* first = "Books/\0";
-    strcat(path, first);
-    //printf("%lu", strlen(selectedBook.filename));
+    //print out the book
+    char path[100];
+    strcpy(path, "Books/");
     strcat(path, selectedBook.filename);
+    //printf("%s", selectedBook.filename);
     //strcat(path, "\0"); 
-    printf("\n\n\nBook Title: <%s>\n", path);
+    printf("\n\n\nBook Title: <%s>\n", selectedBook.title);
     FILE *fp;
-    fp = fopen("Books/Dracula.txt", "r");
+    fp = fopen(path, "r");
+
+    //navigate through book
     char nav = 'N';
     char ch;
-    while(nav == 'N'){
+    
+    printf("\nTo navigate select Next(N) or Exit(E):   ");
+    scanf(" %c", &ch);
+    nav = ch;
+
+	if (nav == 'E'){
+	    printf("\n\n\t\tThank you for choosing Books! \n");
+	    printf("\n");
+	    return 0;
+    }
+    while(nav == 'N'){ 
+	if (nav == 'E'){
+	    printf("\n\n\t\tThank you for choosing Books! \n");
+	    printf("\n");
+	    break;
+	}
 	read_book(&fp, &selectedBook);
 	printf("\nTo navigate select Next(N) or Exit(E):   ");
         scanf(" %c", &ch);
 	nav = ch;
-	if (nav == 'E'){
-	    printf("\n\n\t\tThank you for choosing Books! \n");
-	}
     }
-    fclose(fp);
+    //fclose(fp);
     //printf("%s\n", loadedBook->content.pages[0]);
-
 
     return 0;
 }
