@@ -155,12 +155,16 @@ int core_main(int argc, const char * argv[]) {
 	}
 	//close the file
 	fclose(dir);
-	/*
-        while(curLib != NULL){
-	    printf("%s %s %d %s\n", curLib->booklist.title, curLib->booklist.author.author, curLib->booklist.date, curLib->booklist.filename);
-	    curLib = curLib->next;
-	
-	}*/
+	curLib = lib;
+        strcpy(curLib->booklist.filename, "Books/AliceInWonderland.txt");
+	curLib = curLib->next;   
+	strcpy(curLib->booklist.filename, "Books/Dracula.txt");
+	curLib = curLib->next;    
+	strcpy(curLib->booklist.filename, "Books/Grimm'sFairyTales.txt");
+	curLib = curLib->next;    
+	strcpy(curLib->booklist.filename, "Books/MobyDick.txt");
+	curLib = curLib->next;     
+	strcpy(curLib->booklist.filename, "Books/PrideAndPrejudice.txt");
 
     }
     
@@ -200,14 +204,16 @@ int core_main(int argc, const char * argv[]) {
     }
 
     //print out the book
+    
     char path[100];
     strcpy(path, "Books/");
     strcat(path, selectedBook.filename);
     //printf("%s", selectedBook.filename);
     //strcat(path, "\0"); 
-    printf("\n\n\nBook Title: <%s>\n", selectedBook.title);
+
+    printf("\n\n\nBook Title: <%s>\n", selectedBook.filename);
     FILE *fp;
-    fp = fopen(path, "r");
+    fp = fopen(selectedBook.filename, "r");
 
     //navigate through book
     char nav = 'N';
