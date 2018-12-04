@@ -22,15 +22,16 @@ int core_main(int argc, const char * argv[]) {
     Library * lib; 
     //current point in linkedlist
     Library * curLib;
-
+    
+    char choice;
     int resultNotFound = 1;
     //Allows user to search through the library until they make a selection.
     while(resultNotFound){
-
+     
       printf("How would you like to search the library?");
       printf("\nTitle(T), Author(A), Date(D), List All (L):   ");
-      char choice = getchar();
- 
+      choice = getchar(); 
+
         //open book directory
     	FILE *dir;
     	char buf[250];
@@ -43,14 +44,17 @@ int core_main(int argc, const char * argv[]) {
         //read in the book directory file
 	while(fgets(buf, 250, dir)!= NULL){
             Library * newLib = malloc(sizeof(Library));
-            if(curLib == NULL){
+       
+	    if(curLib == NULL){
                curLib = newLib;
                lib = newLib;
             }
             else {
                curLib->next = newLib;
+	       curLib = curLib->next;
             }
             
+	    /*
             //tokenize string
 	    char* token = strtok(buf, ",");
 	    int i = atoi(token);
@@ -70,12 +74,15 @@ int core_main(int argc, const char * argv[]) {
             strcpy(curLib->booklist.filename, token);
 	    printf("%s\n", curLib->booklist.filename);
 	    curLib = curLib->next;
+	    */
 	}
+	
 
 	//close the file
 	fclose(dir);
 	
 	return 0;
     	
+
     }
 }
