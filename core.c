@@ -13,6 +13,7 @@
 
 #include "core.h"
 #include "book.h"
+#include "usershelf.h"
 
 
 //Search through library of books  by title
@@ -27,8 +28,8 @@ Library* search(const char c, Library * cur){
         printf("Enter title:   ");
         scanf("%s", name); 
     	while(cur != NULL){
-            if (!strcmp(cur->booklist.title, name)){
-                strcpy(result->booklist.title, name);
+            if (strstr(cur->booklist.title, name)!=NULL){
+                strcpy(result->booklist.title, cur->booklist.title);
 		result->next = NULL;
 		return result;
             }
@@ -41,7 +42,7 @@ Library* search(const char c, Library * cur){
         printf("Enter author:   ");
         scanf("%s", name);
         while(cur !=  NULL){
-            if (!strcmp(cur->booklist.author.author,name)){
+            if (strstr(cur->booklist.author.author,name)!= NULL){
 	        strcpy(result->booklist.title, cur->booklist.title);
 		result->next = NULL;
 		return result;
@@ -72,8 +73,6 @@ Library* search(const char c, Library * cur){
     }  
 }
 
-
-
 int core_main(int argc, const char * argv[]) {
     printf("%s", "\n\n\t\tWELCOME TO BOOKS\n\n");
     
@@ -81,12 +80,13 @@ int core_main(int argc, const char * argv[]) {
     Library * lib = NULL; 
     //current point in linkedlist
     Library * curLib = NULL;
+    Shelf * shelf = malloc(sizeof(Shelf));
+    shelf->total = 0;
 
     char choice;
     int resultNotFound = 1;
     //Allows user to search through the library until they make a selection.
     while(resultNotFound){
-
       printf("How would you like to search the library?");
       printf("\nTitle(T), Author(A), Date(D), List All (L):   ");
       scanf(" %c", &choice);
@@ -131,8 +131,11 @@ int core_main(int argc, const char * argv[]) {
 	    token = strtok(NULL, ",");
 	    int num = atoi(token);
 	    curLib ->booklist.date = num;
-	    token = strtok(NULL, ",");
-            strcpy(curLib->booklist.filename, token);
+	    token = strtok(NULL, ", ");
+	    char filename[35];
+	    strcat(filename, token);
+	    strcat(filename, "\0");
+            strcpy(curLib->booklist.filename, filename);
 	}
 	curLib->next = NULL;
 	curLib = lib;
@@ -147,8 +150,7 @@ int core_main(int argc, const char * argv[]) {
             resultNotFound = 0;
 	}
 	else{
-	    printf("Sorry, no books were found.\n");
-	    resultNotFound = 0;
+	    printf("Sorry, no books were found.\n\n");
 	}
 	//close the file
 	fclose(dir);
@@ -161,12 +163,6 @@ int core_main(int argc, const char * argv[]) {
 
     }
     
-    char favorite[50];
-    printf("Would you like to add a book to your favorites shelf (Y/N)? ");
-    scanf("%s", favorite);
-    if(* favorite == 'Y'){
-      printf("call add to shelf");
-    }
  
     char selectedTitle[50];
     printf("\nSelect a title to read:   ");
@@ -175,18 +171,36 @@ int core_main(int argc, const char * argv[]) {
     Book selectedBook;
     curLib = lib;
     while(curLib != NULL){
-        if (strcmp(curLib->booklist.title, selectedTitle) == 0){
+        if (strstr(curLib->booklist.title, selectedTitle) != NULL){
 	    selectedBook = curLib->booklist;
 	}
 	curLib = curLib->next;
     }
+
+    char favorite[50];
+    printf("Would you like to add this book to your favorites shelf (Y/N)?   ");
+    scanf("%s", favorite);
+    if(* favorite == 'Y'){
+        add_to_shelf(shelf, shelf->total, selectedBook);
+	printf("Book added\n\n");
+    }
+    printf("Would you like to view your favorites shelf (Y/N)?   ");
+    scanf("%s", favorite);
+    if(* favorite == 'Y'){
+        print_shelf(shelf);
+	printf("Continue(C):   ");
+	char wait;
+	scanf(" %c", &wait);
+    }
+
+
     char path[70] = "\0";
-    char* first = "Books/";
+    char* first = "Books/\0";
     strcat(path, first);
-    //printf("%s", path);
+    //printf("%lu", strlen(selectedBook.filename));
     strcat(path, selectedBook.filename);
-    //strcat(path, "\0");
-    printf("\n\n\nBook Title: %s\n", selectedBook.title);
+    //strcat(path, "\0"); 
+    printf("\n\n\nBook Title: <%s>\n", path);
     FILE *fp;
     fp = fopen("Books/Dracula.txt", "r");
     char nav = 'N';
@@ -206,4 +220,5 @@ int core_main(int argc, const char * argv[]) {
 
     return 0;
 }
+
 

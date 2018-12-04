@@ -12,8 +12,13 @@
 #include "book.h"
 
 typedef struct Shelf {
-    Book *favorite;    
+    struct Book favorites[25];
+    int total;
 } Shelf;
+
+int add_to_shelf(Shelf * shelf, int tot, Book book);
+
+int print_shelf(Shelf * shelf);
 
 #endif /* usershelf.h */
 
