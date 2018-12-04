@@ -19,9 +19,9 @@ int core_main(int argc, const char * argv[]) {
     printf("%s", "\n\n\t\tWELCOME TO BOOKS\n\n");
     
     //start of linkedlist
-    Library * lib; 
+    Library * lib = NULL; 
     //current point in linkedlist
-    Library * curLib;
+    Library * curLib = NULL;
 
     char choice;
     int resultNotFound = 1;
@@ -43,10 +43,14 @@ int core_main(int argc, const char * argv[]) {
 
         //read in the book directory file
 	while(fgets(buf, 250, dir)!= NULL){
-            Library * newLib = malloc(sizeof(Library));
-
+            
+	    Library * newLib = (Library *)malloc(sizeof(Library));
+	    if (newLib == NULL){
+	        printf("Failure");
+		return 0;
+	    }
 	    if(curLib == NULL){
-               curLib = newLib;
+	       curLib = newLib;
                lib = newLib;
             }
             else {
@@ -55,33 +59,32 @@ int core_main(int argc, const char * argv[]) {
             }
             
             printf("%s", buf);
-	    /*
+	    
             //tokenize string
 	    char* token = strtok(buf, ",");
 	    int i = atoi(token);
 	    i = i-1;
-	    printf("%d\n", i);
 	    token = strtok(NULL, ",");
             strcpy(curLib->booklist.title, token);
-	    printf("%s\n", curLib->booklist.title);
 	    token = strtok(NULL, ",");
             strcpy(curLib->booklist.author.author, token);
-	    printf("%s\n", curLib->booklist.author.author);
 	    token = strtok(NULL, ",");
 	    int num = atoi(token);
 	    curLib ->booklist.date = num;
-	    printf("%d\n", curLib->booklist.date);
 	    token = strtok(NULL, ",");
             strcpy(curLib->booklist.filename, token);
-	    printf("%s\n", curLib->booklist.filename);
-	    curLib = curLib->next;
-	    */
 	}
-	
+	curLib->next = NULL;
 
 	//close the file
 	fclose(dir);
+        curLib = lib;
+	/*
+        while(curLib != NULL){
+	    printf("%s %s %d %s\n", curLib->booklist.title, curLib->booklist.author.author, curLib->booklist.date, curLib->booklist.filename);
+	    curLib = curLib->next;
 	
+	}*/
 	return 0;
     	
 
