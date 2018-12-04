@@ -14,7 +14,37 @@
 #include "core.h"
 #include "book.h"
 
-//Appearance of books application
+
+//Search through library of books  by title
+//c = user's choice
+
+int count = 0;
+int rCount = 0;
+Library* search(const char c, Library * cur){
+    int r = 0;
+    Library * result = (Library *)malloc(sizeof(Library));
+    if (cur == NULL) return NULL;
+    if (c == 'T'){
+        char name[100];
+        printf("Enter title:   ");
+        scanf("%s", name);
+    	printf("name is: %s\n", name);
+    	while(cur != NULL){
+            if (strcmp(cur->booklist.title, name)){
+                strcpy(result->booklist.title, name);
+		result->next = NULL;
+		return result;
+		printf("success");
+		
+            }
+            cur = cur->next;
+    	}
+    }
+    return NULL;
+}
+
+
+
 int core_main(int argc, const char * argv[]) {
     printf("%s", "\n\n\t\tWELCOME TO BOOKS\n\n");
     
@@ -58,7 +88,7 @@ int core_main(int argc, const char * argv[]) {
 	       curLib = curLib->next;
             }
             
-            printf("%s", buf);
+           // printf("%s", buf);
 	    
             //tokenize string
 	    char* token = strtok(buf, ",");
@@ -75,10 +105,11 @@ int core_main(int argc, const char * argv[]) {
             strcpy(curLib->booklist.filename, token);
 	}
 	curLib->next = NULL;
-
+	curLib = lib;
+        Library* result = search(choice, curLib);
+	if (result != NULL) printf("%s\n", result->booklist.title);
 	//close the file
 	fclose(dir);
-        curLib = lib;
 	/*
         while(curLib != NULL){
 	    printf("%s %s %d %s\n", curLib->booklist.title, curLib->booklist.author.author, curLib->booklist.date, curLib->booklist.filename);

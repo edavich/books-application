@@ -9,8 +9,9 @@
 #ifndef core_h
 #define core_h
 #include "book.h"
+#include "library.h"
 
-//int search(const char c, Library all);
+Library* search(const char c, Library* cur);
 
 int core_main(int argc, const char * argv[]);
 
