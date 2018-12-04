@@ -52,8 +52,4 @@ Book* read_book(Book* book, char* filename){
 
 }
 
-<<<<<<< HEAD
-
-=======
->>>>>>> cf8550f8e1f139cd8ccb848f774822831b162d04
 
