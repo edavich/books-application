@@ -15,10 +15,10 @@
 
 
 Book* read_book(Book* book, char* filename){
-    char key[54] = "To navigate type Previous(P), Next(N), or Exit(E):   ";
-    FILE *fp;
+//    char key[54] = "To navigate type Previous(P), Next(N), or Exit(E):   ";
+        FILE *fp;
     	char buf[500];
-	char *path = "/Books";
+/*	char *path = "/Books/";
 	strcat(path, filename);
 	printf("%s\n", path);
     	fp = fopen(path, "r");
@@ -27,7 +27,7 @@ Book* read_book(Book* book, char* filename){
 	    return book;
 	}
         int count = 0;
-        Content content;
+        Content * content = malloc(sizeof(Content));
 
 	while(fgets(buf, 500, fp)!= NULL){
 	    char page[20000];
@@ -40,10 +40,11 @@ Book* read_book(Book* book, char* filename){
 		    break;
 		}
 	    }
-            strcpy(content.pages[count], page);
+            strcpy(content->pages[count], page);
 	    count++;
         }   
-	book->content = content;
+	book->content = *content;
+	*/
 	fclose(fp);
    return book;
    //for a given book title - loop through the content struct
