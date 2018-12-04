@@ -22,7 +22,7 @@ Book* read_book(FILE **fp, Book* book){
         Content * content = malloc(sizeof(Content));
 
 	if(fgets(buf, 1024,*fp)!= NULL){
-	    char page[20000] = "\0";
+	    char page[20000];
 	    strcpy(page, buf);
             for (int i = 0; i < 40; i++){
 	    	if (fgets(buf,1024,*fp)!= NULL){

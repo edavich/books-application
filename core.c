@@ -229,6 +229,7 @@ int core_main(int argc, const char * argv[]) {
 	    break;
 	}
 	read_book(&fp, &selectedBook);
+
 	printf("\nTo navigate select Next(N) or Exit(E):   ");
         scanf(" %c", &ch);
 	nav = ch;
