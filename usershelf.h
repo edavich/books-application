@@ -12,7 +12,7 @@
 #include "book.h"
 
 typedef struct Shelf {
-    Book *book;    
+    Book *favorite;    
 } Shelf;
 
 #endif /* usershelf.h */
