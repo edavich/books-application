@@ -166,12 +166,18 @@ int core_main(int argc, const char * argv[]) {
 	}
 	curLib = curLib->next;
     }
-
-    printf("\n\n\nBook Title: %s", selectedBook.title);
-    read_book(&selectedBook, selectedBook.filename);
+    char path[70] = "\0";
+    char* first = "Books/";
+    strcat(path, first);
+    //printf("%s", path);
+    strcat(path, selectedBook.filename);
+    //strcat(path, "\0");
+    //printf("\n\n\nBook Title: %s\n", path);
+    FILE *fp;
+    fp = fopen("Books/Dracula.txt", "r");
+    Book* loadedBook = read_book(&fp, &selectedBook);
+    fclose(fp);
     //printf("%s\n", loadedBook->content.pages[0]);
-
-
 
 
     return 0;
