@@ -138,7 +138,7 @@ int core_main(int argc, const char * argv[]) {
 	    token = strtok(NULL, ",");
 	    token[strlen(token)-2] = '\0';
             strcpy(curLib->booklist.filename, token);
-            printf("%s", curLib->booklist.filename);
+        //    printf("%s", curLib->booklist.filename);
 	}
 	curLib->next = NULL;
 	curLib = lib;
