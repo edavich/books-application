@@ -216,7 +216,7 @@ int core_main(int argc, const char * argv[]) {
     //printf("%s", selectedBook.filename);
     //strcat(path, "\0"); 
 
-    printf("\n\n\nBook Title: <%s>\n", path);
+    printf("\n\n\nBook Title: <%s>\n", selectedBook.title);
     FILE *fp;
     fp = fopen(path, "r");
 
