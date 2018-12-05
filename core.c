@@ -24,10 +24,12 @@ Library* search(const char c, Library * cur){
     Library * result = (Library *)malloc(sizeof(Library));
     if (cur == NULL) return NULL;
     if (c == 'T'){
-        char name[100];
+        char name[50];
         printf("Enter title:   ");
-        scanf("%s", name); 
-    	while(cur != NULL){
+        fgets(name,50,stdin); 
+        name[strlen(name)-1] = '\0'; 
+	while(cur != NULL){
+	    //printf("%s,%s", cur->booklist.title, name);
             if (strstr(cur->booklist.title, name)!=NULL){
                 strcpy(result->booklist.title, cur->booklist.title);
 		result->next = NULL;
@@ -38,10 +40,11 @@ Library* search(const char c, Library * cur){
     }
         //Search through library of books by author 
     else if (c=='A'){
-        char name[100];
+        char name[50];
         printf("Enter author:   ");
-        scanf("%s", name);
-        while(cur !=  NULL){
+        fgets(name,50,stdin);
+	name[strlen(name)-1] = '\0';
+	while(cur !=  NULL){
             if (strstr(cur->booklist.author.author,name)!= NULL){
 	        strcpy(result->booklist.title, cur->booklist.title);
 		result->next = NULL;
@@ -51,9 +54,10 @@ Library* search(const char c, Library * cur){
         }
     }
      else if (c=='D'){
-        char name[100];
+        char name[10];
         printf("Enter publication date:   ");
-        scanf("%s", name);
+        fgets(name, 10, stdin);
+	name[strlen(name)-1] = '\0';
         int date = atoi(name);
 	printf("%d\n", date);
         while(cur != NULL){
@@ -83,14 +87,14 @@ int core_main(int argc, const char * argv[]) {
     Shelf * shelf = malloc(sizeof(Shelf));
     shelf->total = 0;
 
-    char choice;
+    char choice[5];
     int resultNotFound = 1;
 
     //Allows user to search through the library until they make a selection.
     while(resultNotFound){
       printf("How would you like to search the library?");
       printf("\nTitle(T), Author(A), Date(D), List All (L):   ");
-      scanf(" %c", &choice);
+      fgets(choice,5,stdin);
  
         //open book directory
     	FILE *dir;
@@ -132,16 +136,14 @@ int core_main(int argc, const char * argv[]) {
 	    int num = atoi(token);
 	    curLib ->booklist.date = num;
 	    token = strtok(NULL, ",");
-	    char filename[35];
-            strcpy(filename, token);
-	    //strcat(filename, "\0");
-            strcpy(curLib->booklist.filename, filename);
-            //printf("%s", filename);
+	    token[strlen(token)-2] = '\0';
+            strcpy(curLib->booklist.filename, token);
+            printf("%s", curLib->booklist.filename);
 	}
 	curLib->next = NULL;
 	curLib = lib;
 
-        Library* result = search(choice, curLib);
+        Library* result = search(*choice, curLib);
 	if (result != NULL) {
 	    printf("\n\tBooks found: \n");
 	    while(result != NULL){
@@ -151,10 +153,11 @@ int core_main(int argc, const char * argv[]) {
             resultNotFound = 0;
 	}
 	else{
-	    printf("Sorry, no books were found.\n\n");
+	    printf("\nSorry, no books were found.\n\n");
 	}
 	//close the file
 	fclose(dir);
+	/*
 	curLib = lib;
         strcpy(curLib->booklist.filename, "Books/AliceInWonderland.txt");
 	curLib = curLib->next;   
@@ -165,15 +168,16 @@ int core_main(int argc, const char * argv[]) {
 	strcpy(curLib->booklist.filename, "Books/MobyDick.txt");
 	curLib = curLib->next;     
 	strcpy(curLib->booklist.filename, "Books/PrideAndPrejudice.txt");
-
+*/
     }
     
     //printf("%s", curLib->booklist.filename);
  
     char selectedTitle[50];
     printf("\nSelect a title to read:   ");
-    scanf("%s", selectedTitle);
-     
+    fgets(selectedTitle,50,stdin);
+    selectedTitle[strlen(selectedTitle)-1] = '\0';
+    
     Book selectedBook;
     curLib = lib;
     while(curLib != NULL){
@@ -189,14 +193,14 @@ int core_main(int argc, const char * argv[]) {
     //favorites/users shelf
     char favorite[50];
     printf("Would you like to add this book to your favorites shelf (Y/N)?   ");
-    scanf("%s", favorite);
+    fgets(favorite,50,stdin);
     if(* favorite == 'Y'){
         add_to_shelf(shelf, shelf->total, selectedBook);
 	printf("Book added\n\n");
     }
     printf("Would you like to view your favorites shelf (Y/N)?   ");
     strcpy(favorite, "\0");
-    scanf("%s", favorite);
+    fgets(favorite,50,stdin);
     if(* favorite == 'Y'){
         print_shelf(shelf);
 	printf("Continue(C):   ");
@@ -212,9 +216,9 @@ int core_main(int argc, const char * argv[]) {
     //printf("%s", selectedBook.filename);
     //strcat(path, "\0"); 
 
-    printf("\n\n\nBook Title: <%s>\n", selectedBook.title);
+    printf("\n\n\nBook Title: <%s>\n", path);
     FILE *fp;
-    fp = fopen(selectedBook.filename, "r");
+    fp = fopen(path, "r");
 
     //navigate through book
     char nav = 'N';
